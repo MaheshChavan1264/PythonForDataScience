@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 18 23:35:37 2020
-
-@author: Shraddha Bodake
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 18 22:57:23 2020
-
-@author: Shraddha Bodake
-"""
-
 # =============================================================================================================================
 # CLASSIFYING PERSONAL INCOME
 # =============================================================================================================================
@@ -24,20 +10,20 @@ import pandas as pd
 import numpy as np
 
 # To visualize data
-import seaborn as sns
 
+import seaborn as sns
 """
 import os
 os.listdir()
 os.chdir('Desktop/NPTEL')
 os.listdir()
 """
-
 # To partition the data
 from sklearn.model_selection import train_test_split
 
 # Importing library for logistic regression
 from sklearn.linear_model import LogisticRegression
+
 
 # Importing performance metrics - accuracy score and comfusion matrix
 from sklearn.metrics import accuracy_score, confusion_matrix
@@ -130,7 +116,7 @@ print(gender_salstat)
 
 
 # Frequency distribution of 'Salary Status'
-SalStat= sns.countplot(data2['SalStat'])
+Salstat= sns.countplot(data2['SalStat'])
 
 # Histogram of  Age
 sns.distplot(data2['age'], bins=10, kde=False)
@@ -145,7 +131,22 @@ data2.groupby('SalStat')['age'].median()
 ## LOGISTICS REGRESSION
 
 # Reindexing the salary status names to 0,1
-data2['SalStat']=data2['SalStat'].map({' less than or equal to 50,000'})
+data2['SalStat']=data2['SalStat'].map({' less than or equal to 50,000':0,'greater or equal to 50,0000':1})
 print(data2['SalStat'])
 
 new_data= pd.get_dummies(data2,drop_first=True)
+
+# Storing the colimn names
+columns_list=list(new_data.columns)
+print(columns_list)
+
+# Separating the input names from data
+
+features = list(set(columns_list)-set(['SalStat']))
+print(features)
+
+# Storing the output values in y
+y=new_data['SalStat'].values
+print(y)
+
+# storing the values from input features'x=new_data[features]
